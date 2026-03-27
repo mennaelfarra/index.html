@@ -349,9 +349,8 @@ if send_clicked and user_prompt.strip():
         )
 
         answer = response.output_text or "I could not generate a response."
-    except Exception:
-        answer = "There is a configuration issue with the AI connection. Please check Streamlit secrets and app dependencies."
-
+    except Exception as e:
+        answer = f"AI error: {str(e)}"
     st.session_state.messages.append({"role": "assistant", "content": answer})
     st.rerun()
 

@@ -321,37 +321,21 @@ with col_btn2:
 if send_clicked and user_prompt.strip():
     st.session_state.messages.append({"role": "user", "content": user_prompt.strip()})
 
-    try:
-        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+if send_clicked and user_prompt.strip():
+    st.session_state.messages.append({"role": "user", "content": user_prompt.strip()})
 
-        conversation_input = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a helpful AI assistant for an interactive GIS map website. "
-                    "Answer clearly, professionally, and briefly. "
-                    "If the user asks about the map, answer based on the visible project context only."
-                ),
-            }
-        ]
+    answer = """
+💬 مرحبا بك 🌟
 
-        for m in st.session_state.messages:
-            conversation_input.append(
-                {
-                    "role": m["role"],
-                    "content": m["content"],
-                }
-            )
+هذه الدردشة موجودة لدعم فكرة المشروع فقط،
+وهي حالياً غير مؤهلة للرد على الأسئلة والاستفسارات بشكل فعلي 🤖
 
-        response = client.responses.create(
-            model="gpt-4.1-mini",
-            input=conversation_input
-        )
+شكراً لمرورك 💙
+Menna Elfarra ✨
+"""
 
-        answer = response.output_text or "I could not generate a response."
-    except Exception as e:
-        answer = f"AI error: {str(e)}"
     st.session_state.messages.append({"role": "assistant", "content": answer})
+    st.rerun()    st.session_state.messages.append({"role": "assistant", "content": answer})
     st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)

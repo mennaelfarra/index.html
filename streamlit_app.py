@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from pathlib import Path
 from openai import OpenAI
 
 st.set_page_config(
@@ -282,15 +281,11 @@ st.markdown('<div class="section-title">Explore the Interactive Map</div>', unsa
 st.markdown('<div class="section-subtitle">Zoom, pan, and use the map controls to interact with the visualization.</div>', unsafe_allow_html=True)
 
 # ---------- Map ----------
-map_file = Path("map.html")
+map_url = "https://index-html-six-hazel.vercel.app/map.html"
 
-if map_file.exists():
-    html_content = map_file.read_text(encoding="utf-8")
-    st.markdown('<div class="map-shell">', unsafe_allow_html=True)
-    components.html(html_content, height=700, scrolling=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-else:
-    st.error("map.html file was not found in the repository.")
+st.markdown('<div class="map-shell">', unsafe_allow_html=True)
+components.iframe(map_url, height=700, scrolling=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------- AI Chat ----------
 st.markdown('<div class="chat-wrap">', unsafe_allow_html=True)
@@ -306,7 +301,12 @@ for msg in st.session_state.messages:
     else:
         st.markdown(f'<div class="chat-bubble-ai">{msg["content"]}</div>', unsafe_allow_html=True)
 
-user_prompt = st.text_area("Write your question", placeholder="Example: What does this map show?", label_visibility="collapsed", height=110)
+user_prompt = st.text_area(
+    "Write your question",
+    placeholder="Example: What does this map show?",
+    label_visibility="collapsed",
+    height=110
+)
 
 col_btn1, col_btn2 = st.columns([1, 4])
 
@@ -349,7 +349,7 @@ if send_clicked and user_prompt.strip():
         )
 
         answer = response.output_text or "I could not generate a response."
-    except Exception as e:
+    except Exception:
         answer = "There is a configuration issue with the AI connection. Please check Streamlit secrets and app dependencies."
 
     st.session_state.messages.append({"role": "assistant", "content": answer})

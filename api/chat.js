@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const { message } = req.body || {};
 
     if (!message || !message.trim()) {
-      return res.status(400).json({ reply: "اكتبي سؤال أولًا." });
+      return res.status(400).json({ reply: "اكتب سؤالك هنا." });
     }
 
     const response = await client.responses.create({
@@ -22,11 +22,11 @@ export default async function handler(req, res) {
     });
 
     return res.status(200).json({
-      reply: response.output_text || "ما قدرت أطلع رد.",
+      reply: response.output_text || "تعذر الرد على هذا السؤال.",
     });
   } catch (error) {
     return res.status(500).json({
-      reply: "صار خطأ في الاتصال بالذكاء الاصطناعي.",
+      reply: "هناك خطأ في الاتصال بالذكاء الاصطناعي.",
     });
   }
 }

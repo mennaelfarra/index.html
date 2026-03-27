@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from openai import OpenAI
 
 st.set_page_config(
     page_title="Interactive Map Project",
@@ -87,10 +86,6 @@ header {visibility: hidden;}
     font-size: 0.90rem;
     font-weight: 600;
     box-shadow: 0 0 18px rgba(59,130,246,0.12);
-}
-
-.glow-btn a {
-    text-decoration: none !important;
 }
 
 .card {
@@ -187,7 +182,6 @@ div.stButton > button:hover {
     border-color: rgba(255,255,255,0.22);
 }
 
-div[data-testid="stTextInput"] input,
 div[data-testid="stTextArea"] textarea {
     border-radius: 14px !important;
     border: 1px solid rgba(255,255,255,0.18) !important;
@@ -214,12 +208,6 @@ div[data-testid="stTextArea"] textarea {
     width: fit-content;
     max-width: 90%;
     box-shadow: 0 0 16px rgba(255,255,255,0.09);
-}
-
-hr.soft {
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.10);
-    margin: 20px 0;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -260,8 +248,8 @@ with c2:
     <div class="card">
         <h3>🛠 Technologies Used</h3>
         <p>
-            Built with Python, Streamlit, HTML map export, and GIS workflows, with OpenAI integration
-            to provide a real conversational assistant inside the application.
+            Built with Python, Streamlit, HTML map export, and GIS workflows to provide
+            a polished interactive mapping experience online.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -272,7 +260,7 @@ with c3:
         <h3>🎯 Purpose</h3>
         <p>
             The goal is to deliver a professional and intelligent map experience that allows users
-            to view the map visually and ask questions through a built-in AI chat panel.
+            to view the map visually and interact with a guided support chat.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -321,21 +309,19 @@ with col_btn2:
 if send_clicked and user_prompt.strip():
     st.session_state.messages.append({"role": "user", "content": user_prompt.strip()})
 
-if send_clicked and user_prompt.strip():
-    st.session_state.messages.append({"role": "user", "content": user_prompt.strip()})
-
     answer = """
-💬 مرحبا بك 🌟
+💬 مرحباً بك 🌟
 
 هذه الدردشة موجودة لدعم فكرة المشروع فقط،
-وهي حالياً غير مؤهلة للرد على الأسئلة والاستفسارات بشكل فعلي 🤖
+وهي حالياً غير مؤهلة بعد للرد على أسئلتك واستفساراتك 🤖
 
 شكراً لمرورك 💙
 Menna Elfarra ✨
 """
 
-st.session_state.messages.append({"role": "assistant", "content": answer})
-st.rerun()
+    st.session_state.messages.append({"role": "assistant", "content": answer})
+    st.rerun()
+
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="footer-note">Created by Menna • Professional Interactive GIS Web App</div>', unsafe_allow_html=True)

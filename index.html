@@ -247,7 +247,97 @@
     </div>
 
   </div>
+<button id="chatToggle" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: #2563eb;
+color: white;
+border-radius: 999px;
+padding: 14px 16px;
+border:none;
+cursor:pointer;
+z-index:9999;
+box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+">💬 AI Chat</button>
 
+<div id="chatBox" style="
+display:none;
+position:fixed;
+bottom:80px;
+right:20px;
+width:320px;
+max-width:90vw;
+background:white;
+border-radius:12px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+z-index:9999;
+overflow:hidden;
+font-family:Arial,sans-serif;
+">
+  <div style="padding:12px;background:#2563eb;color:white;font-weight:bold;">
+    AI Chat
+  </div>
+
+  <div id="messages" style="height:260px;overflow:auto;padding:10px;color:black;background:#f8fafc;"></div>
+
+  <div style="display:flex;border-top:1px solid #ddd;">
+    <input id="input" placeholder="اكتبي سؤالك..."
+      style="flex:1;padding:10px;border:none;outline:none;">
+    <button id="sendBtn" style="padding:10px 14px;border:none;background:#2563eb;color:white;cursor:pointer;">
+      Send
+    </button>
+  </div>
+</div>
+
+<script>
+const box = document.getElementById("chatBox");
+const toggleBtn = document.getElementById("chatToggle");
+const sendBtn = document.getElementById("sendBtn");
+const input = document.getElementById("input");
+const messages = document.getElementById("messages");
+
+toggleBtn.onclick = () => {
+  box.style.display = box.style.display === "none" ? "block" : "none";
+};
+
+function addMessage(text) {
+  messages.innerHTML += `<div style="margin-bottom:8px;">${text}</div>`;
+  messages.scrollTop = messages.scrollHeight;
+}
+
+async function sendMessage() {
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  addMessage("👤 " + msg);
+  input.value = "";
+  addMessage("🤖 جاري الرد...");
+
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: msg })
+    });
+
+    const data = await res.json();
+
+    messages.lastChild.remove();
+    addMessage("🤖 " + (data.reply || "ما وصل رد."));
+  } catch (e) {
+    messages.lastChild.remove();
+    addMessage("🤖 صار خطأ في الاتصال.");
+  }
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keypress", function(e) {
+  if (e.key === "Enter") sendMessage();
+});
+</script>
 </body>
 </html>
 <html lang="en">

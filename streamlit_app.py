@@ -334,10 +334,8 @@ if send_clicked and user_prompt.strip():
 Menna Elfarra ✨
 """
 
-    st.session_state.messages.append({"role": "assistant", "content": answer})
-    st.rerun()    st.session_state.messages.append({"role": "assistant", "content": answer})
-    st.rerun()
-
+st.session_state.messages.append({"role": "assistant", "content": answer})
+st.rerun()
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="footer-note">Created by Menna • Professional Interactive GIS Web App</div>', unsafe_allow_html=True)

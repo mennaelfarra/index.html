@@ -269,7 +269,7 @@ st.markdown('<div class="section-title">Explore the Interactive Map</div>', unsa
 st.markdown('<div class="section-subtitle">Zoom, pan, and use the map controls to interact with the visualization.</div>', unsafe_allow_html=True)
 
 # ---------- Map ----------
-map_url = "https://index-html-six-hazel.vercel.app/map.html"
+map_url = "https://raw.githack.com/mennaelfarra/index.html/a726e3aed98045332320a7761cf8b809556719ae/map.html"
 
 st.markdown('<div class="map-shell">', unsafe_allow_html=True)
 components.iframe(map_url, height=700, scrolling=True)

@@ -270,7 +270,7 @@ st.markdown('<div class="section-title">Explore the Interactive Map</div>', unsa
 st.markdown('<div class="section-subtitle">Zoom, pan, and use the map controls to interact with the visualization.</div>', unsafe_allow_html=True)
 
 # ---------- Map ----------
-map_url = "https://mennaelfarra.github.io/index.html/map.html"
+map_url = "https://raw.githack.com/mennaelfarra/index.html/main/map.html"
 
 st.markdown('<div class="map-shell">', unsafe_allow_html=True)
 components.iframe(map_url, height=700, scrolling=True)
